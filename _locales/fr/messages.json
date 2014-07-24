@@ -1,0 +1,30 @@
+{
+	"options_page_title" : {
+		"message" : "Mega-Debrid for chrome",
+		"description" : "The title of options page"
+	},
+	"options_form_title" : {
+		"message" : "Mega-Debrid options",
+		"description" : "The title of form in options page"
+	},
+	"options_label_login" : {
+		"message" : "Login",
+		"description" : "Label for login field in options page"
+	},
+	"options_label_password" : {
+		"message" : "Mot de passe",
+		"description" : "Label for password field in options page"
+	},
+	"options_button_save" : {
+		"message" : "Sauvegarder",
+		"description" : "Save button in options page"
+	},
+	"options_save_complete" : {
+		"message" : "Options sauvegardées",
+		"description" : "Display when login and password are saved"
+	},
+	"options_login_fail" : {
+		"message" : "Erreur durant la tentative d'authentification.",
+		"description" : "Display when an error occurred during the check credential"
+	}
+}
