@@ -28,6 +28,7 @@
 	"permissions": [
 		"storage",
 		"contextMenus",
+		"clipboardWrite",
 		"<all_urls>"
 	]
 	

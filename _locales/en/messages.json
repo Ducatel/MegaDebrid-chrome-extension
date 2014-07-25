@@ -35,6 +35,10 @@
 		"message" : "Add to basket",
 		"description" : "Contextual menu entry for adding link to basket"
 	},
+	"context_menu_get_debrided_link" : {
+		"message" : "Get debrided link",
+		"description" : "Contextual menu entry for get debrided url"
+	},
 	"undefined_error_debird_link" : {
 		"message" : "An undefined error is occured. Impossible to debrid the link.",
 		"description" : "undefined error is occurred during the debrid process"
@@ -54,5 +58,9 @@
 	"mainPopup_download_button" : {
 		"message" : "Download links",
 		"description" : "Button download in the main popup"
+	},
+	"no_account_error" : {
+		"message" : "Please enter your login/password in option page",
+		"description" : "Error message when no account was saved"
 	}
 }

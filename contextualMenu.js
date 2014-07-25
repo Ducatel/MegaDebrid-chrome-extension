@@ -9,7 +9,7 @@
  */
 function downloadNowMenuCallback(info, tab){
 	var linkUrl = info['linkUrl'].trim();
-	debridLink( [ linkUrl ] );
+	debridLink( [ linkUrl ] , true );
 }
 
 /**
@@ -23,10 +23,23 @@ function addToBasketMenuCallback(info, tab){
 	alert('Not implemented yet');
 }
 
+/**
+ * Callback of "get debrid link" menu entry 
+ * @param  info Array of info on current link
+ * @param  tab  Array of info on current tab
+ */
+function getDebridLinkMenuCallback(info, tab){
+	var linkUrl = info['linkUrl'].trim();
+	debridLink( [ linkUrl ], false );
+}
 
 chrome.contextMenus.removeAll();
+
 var title = chrome.i18n.getMessage('context_menu_download_menu');
 chrome.contextMenus.create({"title": title, "contexts":["link"], "onclick": downloadNowMenuCallback});
+
+title = chrome.i18n.getMessage('context_menu_get_debrided_link');
+chrome.contextMenus.create({"title": title, "contexts":["link"], "onclick": getDebridLinkMenuCallback});
 
 title = chrome.i18n.getMessage('context_menu_add_basket');
 chrome.contextMenus.create({"title": title, "contexts":["link"], "onclick": addToBasketMenuCallback});

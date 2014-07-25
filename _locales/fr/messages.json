@@ -35,6 +35,10 @@
 		"message" : "Ajouter au panier",
 		"description" : "Contextual menu entry for adding link to basket"
 	},
+	"context_menu_get_debrided_link" : {
+		"message" : "Récupérer l'url débrider",
+		"description" : "Contextual menu entry for get debrided url"
+	},
 	"undefined_error_debird_link" : {
 		"message" : "Une erreur indéfinie est survenue. Impossible de débrider le lien",
 		"description" : "undefined error is occurred during the debrid process"
@@ -54,5 +58,9 @@
 	"mainPopup_download_button" : {
 		"message" : "Télécharger les liens",
 		"description" : "Button download in the main popup"
+	},
+	"no_account_error" : {
+		"message" : "Veuillez entrer votre login/mot de passe dans les options du plugin",
+		"description" : "Error message when no account was saved"
 	}
 }

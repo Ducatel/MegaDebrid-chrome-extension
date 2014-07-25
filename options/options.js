@@ -28,9 +28,11 @@ function saveCredential(login, password){
 	try {
 
 		xhr.onreadystatechange = function(){
+
 			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 
 				var jsonResponse = JSON.parse(xhr.responseText);
+				alert(jsonResponse);
 				if( jsonResponse["response_code"].trim() == "ok" ){
 
 					chrome.storage.sync.set({'login': login, 'password' : password, 'token': jsonResponse["token"] }, function() {
@@ -40,11 +42,15 @@ function saveCredential(login, password){
 				else
 					printAPIError(jsonResponse);
 			}
+			else{
+			printAPIError(undefined);
+			console.log(xhr);
+			 }
 		}
 
-		xhr.onerror = function(error) {	console.error(error);	}
+		xhr.onerror = function(error) {	console.error(error);	alert(error);}
 
-		var url = "https://www.mega-debrid.eu/api.php?action=connectUser";
+		var url = "http://www.mega-debrid.eu/api.php?action=connectUser";
 		url += "&login=" + encodeURIComponent(login);
 		url += "&password=" + encodeURIComponent(password);
 

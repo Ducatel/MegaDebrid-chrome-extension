@@ -2,47 +2,73 @@
 /**
  * Debrid links
  * @param  array of links you want to debrid
+ * @param autoDownload If true download the debrided link, false copy the link
  */
-function debridLink(links){
+function debridLink(links, autoDownload){
 
 	chrome.storage.sync.get(
 	{ token: 'token' }, 
 	function(items) {
 
-		var api_url = "https://www.mega-debrid.eu/api.php?action=getLink&token=" + items.token;
+		if(items.token != "token"){
 
-		for(var i = 0 ; i < links.length ; i++){
+			var api_url = "https://www.mega-debrid.eu/api.php?action=getLink&token=" + items.token;
 
-			var link = links[i];
-			var xhr = new XMLHttpRequest();
-			try {
+			for(var i = 0 ; i < links.length ; i++){
 
-				xhr.onreadystatechange = function(){
-					if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+				var link = links[i];
+				var xhr = new XMLHttpRequest();
+				try {
 
-						var jsonResponse = JSON.parse(xhr.responseText);
-						console.log(jsonResponse);
+					xhr.onreadystatechange = function(){
+						if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 
-						if (jsonResponse['response_code'] == "ok"){
-							
-							var newLink = jsonResponse['debridLink'].trim().slice(1, -1);
-							console.log(newLink)
-							window.open(newLink); 
-						}
-						else{
-							alert(chrome.i18n.getMessage('undefined_error_debird_link'));
+							var jsonResponse = JSON.parse(xhr.responseText);
+							console.log(jsonResponse);
+
+							if (jsonResponse['response_code'] == "ok"){
+								
+								var newLink = jsonResponse['debridLink'].trim().slice(1, -1);
+								console.log(newLink);
+								if(autoDownload)
+									window.open(newLink); 
+								else
+									copyToClipboard(newLink);
+							}
+							else{
+								alert(chrome.i18n.getMessage('undefined_error_debird_link'));
+							}
 						}
 					}
-				}
 
-				xhr.onerror = function(error) {	console.error(error); }			
+					xhr.onerror = function(error) {	console.error(error); }			
 
-				xhr.open("POST", api_url, true);
-				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-				xhr.send("link=" + link);
-			
-			} catch(e) { console.error(e); }
+					xhr.open("POST", api_url, true);
+					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+					xhr.send("link=" + link);
+				
+				} catch(e) { console.error(e); }
+			}
+		}
+		else{
+			alert(chrome.i18n.getMessage("no_account_error"));
 		}
 	});
 
+}
+
+/**
+ * Copy variable to clipboard
+ * @param text The value you want to copy in the clipboard
+ */
+function copyToClipboard( text ){
+	var copyDiv = document.createElement('div');
+	copyDiv.contentEditable = true;
+	document.body.appendChild(copyDiv);
+	copyDiv.innerHTML = text;
+	copyDiv.unselectable = "off";
+	copyDiv.focus();
+	document.execCommand('SelectAll');
+	document.execCommand("Copy", false, null);
+	document.body.removeChild(copyDiv);
 }
