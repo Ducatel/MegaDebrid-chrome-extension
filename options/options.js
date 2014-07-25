@@ -1,56 +1,57 @@
+
+/**
+ * Display an alert box for display the error
+ * @param   jsonResponse json API response
+ */
 function printAPIError(jsonResponse){
 
 	var msg = chrome.i18n.getMessage('options_login_fail') + "\n";
-	if(jsonResponse["response_code"].trim() == "BANNED_ACCOUNT")
-		msg += jsonResponse["banned_reason"];
-	else if (jsonResponse["response_code"].trim() == "UNKNOWN_USER")
-		msg += jsonResponse["response_text"];
-	
+	if(jsonResponse != undefined){
+		if(jsonResponse["response_code"].trim() == "BANNED_ACCOUNT")
+			msg += jsonResponse["banned_reason"];
+		else if (jsonResponse["response_code"].trim() == "UNKNOWN_USER")
+			msg += jsonResponse["response_text"];
+	}
 	alert(msg);
 
 }
 
-
 /**
- * Check if the credential are valid
+ * Check if the credential are valid and
+ * if is valid, save the login/password/token
  * @param  login   The login
  * @param  password The password
- * @return true if valid
  */
-function checkCredential(login, password){
+function saveCredential(login, password){
 
 	var xhr = new XMLHttpRequest();
-    try {
-        xhr.onreadystatechange = function(){
-            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+	try {
+
+		xhr.onreadystatechange = function(){
+			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+
 				var jsonResponse = JSON.parse(xhr.responseText);
-				if(jsonResponse["response_code"].trim() == "ok"){
-					return true;
+				if( jsonResponse["response_code"].trim() == "ok" ){
+
+					chrome.storage.sync.set({'login': login, 'password' : password, 'token': jsonResponse["token"] }, function() {
+						alert(chrome.i18n.getMessage('options_save_complete'));
+					});
 				}
-				else{
+				else
 					printAPIError(jsonResponse);
-					return false;
-				}
-            }
-            else
-            	return false;
-            
-        }
-        xhr.onerror = function(error) {
-            console.error(error);
-            return false;
-        }
+			}
+		}
 
-        var url = "https://www.mega-debrid.eu/api.php?action=connectUser";
-        url += "&login=" + encodeURIComponent(login);
-        url += "&password=" + encodeURIComponent(password);
+		xhr.onerror = function(error) {	console.error(error);	}
 
-        xhr.open("GET", url, false);
-        xhr.send(null);
-    } catch(e) {
-        console.error(e);
-        return false;
-    }
+		var url = "https://www.mega-debrid.eu/api.php?action=connectUser";
+		url += "&login=" + encodeURIComponent(login);
+		url += "&password=" + encodeURIComponent(password);
+
+		xhr.open("GET", url, false);
+		xhr.send(null);
+		
+	} catch(e) { console.error(e); }
 }
 
 /**
@@ -59,15 +60,7 @@ function checkCredential(login, password){
 function save_options() {
 	var login = document.getElementById('login').value;
 	var password = document.getElementById('password').value;
-
-	if( checkCredential(login, password) ){
-
-		chrome.storage.sync.set({'login': login, 'password' : password }, function() {
-			alert(chrome.i18n.getMessage('options_save_complete'));
-			
-		});
-	}
-
+	saveCredential(login, password);
 }
 
 /**
@@ -81,7 +74,7 @@ function restore_options() {
 	}, 
 	function(items) {
 		document.getElementById('login').value = items.login;
-  		document.getElementById('password').value= items.password;
+		document.getElementById('password').value= items.password;
 	});
 }
 

@@ -1,21 +1,29 @@
 {
-	"manifest_version": 2,
-	"name" :"Mega-Debrid for chrome",
-	"version" :"1.0",
-	"author": "D.Ducatel",
-	"description": "Mega-Debrid chrome extension",
-	"default_locale" : "en",
-	"options_page": "options/options.html",
-	"browser_action" :
-	{
-		"default_icon" : "favicon.png"
-	},
-	"background": {
-		"scripts": ["event.js"],
-		"persistent": false
-	},
-	"permissions": [ 
-		"storage",
-		"<all_urls>"
-	]
+    "author": "D.Ducatel",
+    "background": {
+        "scripts": [
+            "common.js",
+            "contextualMenu.js"
+        ]
+    },
+    "browser_action": {
+        "default_icon": "img/favicon.png",
+        "default_popup": "mainPopup.html"
+    },
+    "default_locale": "en",
+    "description": "Mega-Debrid chrome extension",
+    "icons": {
+        "128": "img/icon128.png",
+        "16": "img/icon16.png",
+        "48": "img/icon48.png"
+    },
+    "manifest_version": 2,
+    "name": "Mega-Debrid for chrome",
+    "options_page": "options/options.html",
+    "permissions": [
+        "storage",
+        "contextMenus",
+        "<all_urls>"
+    ],
+    "version": "1.0"
 }

@@ -26,5 +26,13 @@
 	"options_login_fail" : {
 		"message" : "Erreur durant la tentative d'authentification.",
 		"description" : "Display when an error occurred during the check credential"
+	},
+	"context_menu_download_menu" : {
+		"message" : "Télécharger maintenant",
+		"description" : "Contextual menu entry for downloading link immediately"
+	},
+	"context_menu_add_basket" : {
+		"message" : "Ajouter au panier",
+		"description" : "Contextual menu entry for adding link to basket"
 	}
 }
