@@ -8,10 +8,8 @@
  * @param  tab  Array of info on current tab
  */
 function downloadNowMenuCallback(info, tab){
-
-	var linkUrl = info['linkUrl'];
+	var linkUrl = info['linkUrl'].trim();
 	debridLink( [ linkUrl ] );
-
 }
 
 /**
@@ -21,15 +19,17 @@ function downloadNowMenuCallback(info, tab){
  */
 function addToBasketMenuCallback(info, tab){
 	console.log('link to adding in basket: ' + info['linkUrl']);
-
+	document.getElementById('test').innerhtml=info['linkUrl'];
+	alert('Not implemented yet');
 }
 
 
+chrome.contextMenus.removeAll();
 var title = chrome.i18n.getMessage('context_menu_download_menu');
-chrome.contextMenus.create({"title": title, "contexts":["link"],   "onclick": downloadNowMenuCallback});
+chrome.contextMenus.create({"title": title, "contexts":["link"], "onclick": downloadNowMenuCallback});
 
 title = chrome.i18n.getMessage('context_menu_add_basket');
-chrome.contextMenus.create({"title": title, "contexts":["link"],   "onclick": addToBasketMenuCallback});
+chrome.contextMenus.create({"title": title, "contexts":["link"], "onclick": addToBasketMenuCallback});
 
 
 

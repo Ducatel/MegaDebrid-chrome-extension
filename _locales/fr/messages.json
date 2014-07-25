@@ -20,7 +20,7 @@
 		"description" : "Save button in options page"
 	},
 	"options_save_complete" : {
-		"message" : "Options sauvegardées",
+		"message" : "Options valides et sauvegardées",
 		"description" : "Display when login and password are saved"
 	},
 	"options_login_fail" : {
@@ -34,5 +34,25 @@
 	"context_menu_add_basket" : {
 		"message" : "Ajouter au panier",
 		"description" : "Contextual menu entry for adding link to basket"
+	},
+	"undefined_error_debird_link" : {
+		"message" : "Une erreur indéfinie est survenue. Impossible de débrider le lien",
+		"description" : "undefined error is occurred during the debrid process"
+	},
+	"mainPopup_table_title" : {
+		"message" : "Listes des liens",
+		"description" : "The table title in the main popup"
+	},
+	"mainPopup_table_column_2_title" : {
+		"message" : "Lien",
+		"description" : "The name of second column in the the main popup table"
+	},
+	"mainPopup_table_row_delete" : {
+		"message" : "Supprimer",
+		"description" : "Action name for delete a link in main popup table"
+	},
+	"mainPopup_download_button" : {
+		"message" : "Télécharger les liens",
+		"description" : "Button download in the main popup"
 	}
 }

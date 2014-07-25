@@ -20,8 +20,8 @@
 		"description" : "Save button in options page"
 	},
 	"options_save_complete" : {
-		"message" : "Settings saved",
-		"description" : "Display when login and password are saved"
+		"message" : "Settings are valid and saved",
+		"description" : "Display when login and password are saved/Validate"
 	},
 	"options_login_fail" : {
 		"message" : "Error during authentication.",
@@ -34,5 +34,25 @@
 	"context_menu_add_basket" : {
 		"message" : "Add to basket",
 		"description" : "Contextual menu entry for adding link to basket"
+	},
+	"undefined_error_debird_link" : {
+		"message" : "An undefined error is occured. Impossible to debrid the link.",
+		"description" : "undefined error is occurred during the debrid process"
+	},
+	"mainPopup_table_title" : {
+		"message" : "Links list",
+		"description" : "The table title in the main popup"
+	},
+	"mainPopup_table_column_2_title" : {
+		"message" : "Link",
+		"description" : "The name of second column in the the main popup table"
+	},
+	"mainPopup_table_row_delete" : {
+		"message" : "Delete",
+		"description" : "Action name for delete a link in main popup table"
+	},
+	"mainPopup_download_button" : {
+		"message" : "Download links",
+		"description" : "Button download in the main popup"
 	}
 }

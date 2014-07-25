@@ -2,7 +2,6 @@
 /**
  * Debrid links
  * @param  array of links you want to debrid
- * @return 
  */
 function debridLink(links){
 
@@ -10,7 +9,7 @@ function debridLink(links){
 	{ token: 'token' }, 
 	function(items) {
 
-		var API_URL = "https://www.mega-debrid.eu/api.php?action=getLink&token=" + items.token;
+		var api_url = "https://www.mega-debrid.eu/api.php?action=getLink&token=" + items.token;
 
 		for(var i = 0 ; i < links.length ; i++){
 
@@ -23,15 +22,25 @@ function debridLink(links){
 
 						var jsonResponse = JSON.parse(xhr.responseText);
 						console.log(jsonResponse);
+
+						if (jsonResponse['response_code'] == "ok"){
+							
+							var newLink = jsonResponse['debridLink'].trim().slice(1, -1);
+							console.log(newLink)
+							window.open(newLink); 
+						}
+						else{
+							alert(chrome.i18n.getMessage('undefined_error_debird_link'));
+						}
 					}
 				}
 
-				xhr.onerror = function(error) {	console.error(error);	}			
+				xhr.onerror = function(error) {	console.error(error); }			
 
-				xhr.open("POST", API_URL, false);
+				xhr.open("POST", api_url, true);
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				xhr.send("link=" + link);
-				
+			
 			} catch(e) { console.error(e); }
 		}
 	});
