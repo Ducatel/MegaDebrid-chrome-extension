@@ -43,6 +43,14 @@
 		"message" : "An undefined error is occured. Impossible to debrid the link.",
 		"description" : "undefined error is occurred during the debrid process"
 	},
+	"max_link_in_basket" : {
+		"message" : "Impossible to add this link. You reach the limit of link in the basket.",
+		"description" : "Message when user reach the limit of max link in the basket"
+	},
+	"link_added_basket" : {
+		"message" : "Link added in the basket.",
+		"description" : "Message when the link was added to the basket"
+	},
 	"mainPopup_table_title" : {
 		"message" : "Links list",
 		"description" : "The table title in the main popup"

@@ -18,9 +18,26 @@ function downloadNowMenuCallback(info, tab){
  * @param  tab  Array of info on current tab
  */
 function addToBasketMenuCallback(info, tab){
-	console.log('link to adding in basket: ' + info['linkUrl']);
-	document.getElementById('test').innerhtml=info['linkUrl'];
-	alert('Not implemented yet');
+
+	//chrome.storage.sync.set({'linksTodebrid': []});
+
+	chrome.storage.sync.get( { linksTodebrid: 'linksTodebrid' }, 
+	function(items) {
+		var linksTodebrid = items.linksTodebrid;
+		if( Object.prototype.toString.call( linksTodebrid ) !== '[object Array]' ) 
+    		linksTodebrid = Array();
+		
+		var maxLinksInBasket = 10;
+		if(linksTodebrid.length < maxLinksInBasket ){
+			linksTodebrid.push(info['linkUrl']);
+			chrome.storage.sync.set({'linksTodebrid': linksTodebrid}, function() {
+				alert(chrome.i18n.getMessage('link_added_basket'));
+			});
+		}
+		else
+			alert(chrome.i18n.getMessage('max_link_in_basket'));
+	});
+
 }
 
 /**

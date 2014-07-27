@@ -27,7 +27,7 @@ th {
 	font-weight: bold;
 }
 
-th:first-child, td:first-child {
+th:first-child{
 	padding: 0 15px 0 20px;
 }
 
@@ -48,8 +48,9 @@ tbody td {
 }
 
 td:last-child {
-	text-align: right;
+	text-align: left;
 	padding-right: 10px;
+	font-size:x-small;
 }
 
 .button {
@@ -115,4 +116,11 @@ td:last-child {
 	background: -o-linear-gradient(top, #3e779d, #65a9d7);
 	background-image: -ms-linear-gradient(top, #3e779d 0%, #65a9d7 100%);
 	color: #fff;
+}
+
+.deleteButton{
+	width: 24px;
+	cursor: pointer;
+	margin-left:10px;
+	vertical-align: middle;
 }

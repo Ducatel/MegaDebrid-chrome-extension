@@ -43,6 +43,14 @@
 		"message" : "Une erreur indéfinie est survenue. Impossible de débrider le lien",
 		"description" : "undefined error is occurred during the debrid process"
 	},
+	"max_link_in_basket" : {
+		"message" : "Impossible d'ajouter ce lien. Vous avez atteint la limite maximal des liens dans le panier.",
+		"description" : "Message when user reach the limit of max link in the basket"
+	},
+	"link_added_basket" : {
+		"message" : "Lien ajouté au panier",
+		"description" : "Message when the link was added to the basket"
+	},
 	"mainPopup_table_title" : {
 		"message" : "Listes des liens",
 		"description" : "The table title in the main popup"
