@@ -10,45 +10,44 @@ function debridLink(links, autoDownload){
 	{ token: 'token' }, 
 	function(items) {
 
-		if(items.token != "token"){
+		if(chrome.runtime.lastError){
+			displayNotification(chrome.i18n.getMessage("no_account_error"), true);
+			return;
+		}
 
-			var api_url = "https://www.mega-debrid.eu/api.php?action=getLink&token=" + items.token;
+		var api_url = "https://www.mega-debrid.eu/api.php?action=getLink&token=" + items.token;
 
-			for(var i = 0 ; i < links.length ; i++){
+		for(var i = 0 ; i < links.length ; i++){
 
-				var link = links[i];
-				var xhr = new XMLHttpRequest();
-				try {
+			var link = links[i];
+			var xhr = new XMLHttpRequest();
+			try {
 
-					xhr.onreadystatechange = function(){
-						if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+				xhr.onreadystatechange = function(){
+					if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 
-							var jsonResponse = JSON.parse(xhr.responseText);
-							if (jsonResponse['response_code'] == "ok"){
-								
-								var newLink = jsonResponse['debridLink'].trim().slice(1, -1);
-								if(autoDownload)
-									window.open(newLink); 
-								else
-									copyToClipboard(newLink);
-							}
-							else{
-								displayNotification(chrome.i18n.getMessage('undefined_error_debird_link') + "\n" + link , true);
-							}
+						var jsonResponse = JSON.parse(xhr.responseText);
+						if (jsonResponse['response_code'] == "ok"){
+							
+							var newLink = jsonResponse['debridLink'].trim().slice(1, -1);
+							if(autoDownload)
+								window.open(newLink); 
+							else
+								copyToClipboard(newLink);
+						}
+						else{
+							displayNotification(chrome.i18n.getMessage('undefined_error_debird_link') + "\n" + link , true);
 						}
 					}
+				}
 
-					xhr.onerror = function(error) {	console.error(error); }			
+				xhr.onerror = function(error) {	console.error(error); }			
 
-					xhr.open("POST", api_url, true);
-					xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-					xhr.send("link=" + link);
-				
-				} catch(e) { console.error(e); }
-			}
-		}
-		else{
-			displayNotification(chrome.i18n.getMessage("no_account_error"), true);
+				xhr.open("POST", api_url, true);
+				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				xhr.send("link=" + link);
+			
+			} catch(e) { console.error(e); }
 		}
 	});
 

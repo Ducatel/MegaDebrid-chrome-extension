@@ -3,7 +3,7 @@
  * Load the content of the basket
  */
 function loadBasket(){
-	chrome.storage.sync.get( { linksTodebrid: 'linksTodebrid' }, 
+	chrome.storage.local.get( { linksTodebrid: 'linksTodebrid' }, 
 	function(items) {
 		var listOfLinks = items.linksTodebrid;
 		if( Object.prototype.toString.call( listOfLinks ) !== '[object Array]' ) 
@@ -49,7 +49,7 @@ function reduceDisplayedLink(link){
  */
 function deleteRow(rowId){
 
-	chrome.storage.sync.get( { linksTodebrid: 'linksTodebrid' }, 
+	chrome.storage.local.get( { linksTodebrid: 'linksTodebrid' }, 
 		function(items) {
 			var listOfLinks = items.linksTodebrid;
 
@@ -58,7 +58,7 @@ function deleteRow(rowId){
 					if(i != rowId)
 						newListOfLinks.push(listOfLinks[i]);
 			
-			chrome.storage.sync.set({'linksTodebrid': newListOfLinks}, loadBasket);
+			chrome.storage.local.set({'linksTodebrid': newListOfLinks}, loadBasket);
 		}
 	);
 }
@@ -67,15 +67,17 @@ function deleteRow(rowId){
  * Dowload all links in basket
  */
 function downloadAllBasket(){
-	chrome.storage.sync.get( { linksTodebrid: 'linksTodebrid' }, 
+
+	chrome.storage.local.get( { linksTodebrid: 'linksTodebrid' }, 
 		function(items) {
 
 			var listOfLinks = items.linksTodebrid;
-			if( Object.prototype.toString.call( listOfLinks ) !== '[object Array]' ) 
-				return;
-
-			debridLink( listOfLinks , true );
-			chrome.storage.sync.set({'linksTodebrid': []}, loadBasket);
+			if( Object.prototype.toString.call( listOfLinks ) === '[object Array]' ) {
+				debridLink( listOfLinks , true );
+				chrome.storage.local.set({'linksTodebrid': []}, loadBasket);
+			}
+			else
+				alert('oups');
 		}
 	);
 }

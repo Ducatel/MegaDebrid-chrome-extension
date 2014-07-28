@@ -19,7 +19,7 @@ function downloadNowMenuCallback(info, tab){
  */
 function addToBasketMenuCallback(info, tab){
 
-	chrome.storage.sync.get( { linksTodebrid: 'linksTodebrid' }, 
+	chrome.storage.local.get( { linksTodebrid: 'linksTodebrid' }, 
 	function(items) {
 		var linksTodebrid = items.linksTodebrid;
 		if( Object.prototype.toString.call( linksTodebrid ) !== '[object Array]' ) 
@@ -28,7 +28,7 @@ function addToBasketMenuCallback(info, tab){
 		var maxLinksInBasket = 10;
 		if(linksTodebrid.length < maxLinksInBasket ){
 			linksTodebrid.push(info['linkUrl']);
-			chrome.storage.sync.set({'linksTodebrid': linksTodebrid}, function() {
+			chrome.storage.local.set({'linksTodebrid': linksTodebrid}, function() {
 				displayNotification(chrome.i18n.getMessage('link_added_basket'));
 			});
 		}
