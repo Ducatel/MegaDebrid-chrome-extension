@@ -1,6 +1,6 @@
 
 /**
- * Display an alert box for display the error
+ * Display an notification for display the error
  * @param   jsonResponse json API response
  */
 function printAPIError(jsonResponse){
@@ -8,12 +8,11 @@ function printAPIError(jsonResponse){
 	var msg = chrome.i18n.getMessage('options_login_fail') + "\n";
 	if(jsonResponse != undefined){
 		if(jsonResponse["response_code"].trim() == "BANNED_ACCOUNT")
-			msg += jsonResponse["banned_reason"];
+			msg += " - " + jsonResponse["banned_reason"];
 		else if (jsonResponse["response_code"].trim() == "UNKNOWN_USER")
-			msg += jsonResponse["response_text"];
+			msg += " - " + jsonResponse["response_text"];
 	}
-	alert(msg);
-
+	displayNotification(msg, true);
 }
 
 /**
@@ -32,23 +31,21 @@ function saveCredential(login, password){
 			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 
 				var jsonResponse = JSON.parse(xhr.responseText);
-				alert(jsonResponse);
+				console.log("[DEBUG] saveCredential:");
+				console.log(jsonResponse);
+
 				if( jsonResponse["response_code"].trim() == "ok" ){
 
 					chrome.storage.sync.set({'login': login, 'password' : password, 'token': jsonResponse["token"] }, function() {
-						alert(chrome.i18n.getMessage('options_save_complete'));
+						displayNotification(chrome.i18n.getMessage('options_save_complete'));
 					});
 				}
 				else
 					printAPIError(jsonResponse);
 			}
-			else{
-			printAPIError(undefined);
-			console.log(xhr);
-			 }
 		}
 
-		xhr.onerror = function(error) {	console.error(error);	alert(error);}
+		xhr.onerror = function(error) {	console.error(error);}
 
 		var url = "http://www.mega-debrid.eu/api.php?action=connectUser";
 		url += "&login=" + encodeURIComponent(login);

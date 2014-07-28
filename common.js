@@ -24,19 +24,16 @@ function debridLink(links, autoDownload){
 						if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 
 							var jsonResponse = JSON.parse(xhr.responseText);
-							console.log(jsonResponse);
-
 							if (jsonResponse['response_code'] == "ok"){
 								
 								var newLink = jsonResponse['debridLink'].trim().slice(1, -1);
-								console.log(newLink);
 								if(autoDownload)
 									window.open(newLink); 
 								else
 									copyToClipboard(newLink);
 							}
 							else{
-								alert(chrome.i18n.getMessage('undefined_error_debird_link'));
+								displayNotification(chrome.i18n.getMessage('undefined_error_debird_link') + "\n" + link , true);
 							}
 						}
 					}
@@ -51,7 +48,7 @@ function debridLink(links, autoDownload){
 			}
 		}
 		else{
-			alert(chrome.i18n.getMessage("no_account_error"));
+			displayNotification(chrome.i18n.getMessage("no_account_error"), true);
 		}
 	});
 
@@ -71,4 +68,28 @@ function copyToClipboard( text ){
 	document.execCommand('SelectAll');
 	document.execCommand("Copy", false, null);
 	document.body.removeChild(copyDiv);
+	displayNotification(chrome.i18n.getMessage('url_copied_in_clipboard'));
+}
+
+/**
+ * Display a notification
+ * @param  msg The message you want to display
+ * @param isError If true display a notification for error else standard notification. Default value: false
+ */
+function displayNotification(msg, isError){
+
+	isError = (typeof isError !== 'undefined') ? isError : false;
+
+	var opt = { type: "basic",  title: "Mega-Debrid", message: msg }
+
+	if(isError){
+		opt['iconUrl'] = chrome.extension.getURL("img/errorIcon.png");
+		opt['eventTime'] = Date.now() + 15000;
+	}
+	else{
+		opt['iconUrl'] = chrome.extension.getURL("img/icon128.png");
+		opt['eventTime'] = Date.now() + 3000;
+	}
+
+	chrome.notifications.create("", opt,function(notificationId) { });
 }

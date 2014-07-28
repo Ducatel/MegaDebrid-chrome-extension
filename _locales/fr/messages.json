@@ -39,6 +39,10 @@
 		"message" : "Récupérer l'url débrider",
 		"description" : "Contextual menu entry for get debrided url"
 	},
+	"url_copied_in_clipboard" : {
+		"message" : "Copié dans le presse papier",
+		"description" : "When url are copied inside the clipboard"
+	},
 	"undefined_error_debird_link" : {
 		"message" : "Une erreur indéfinie est survenue. Impossible de débrider le lien",
 		"description" : "undefined error is occurred during the debrid process"

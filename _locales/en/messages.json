@@ -39,6 +39,10 @@
 		"message" : "Get debrided link",
 		"description" : "Contextual menu entry for get debrided url"
 	},
+	"url_copied_in_clipboard" : {
+		"message" : "Copied in clipboard",
+		"description" : "When url are copied inside the clipboard"
+	},
 	"undefined_error_debird_link" : {
 		"message" : "An undefined error is occured. Impossible to debrid the link.",
 		"description" : "undefined error is occurred during the debrid process"
