@@ -76,8 +76,6 @@ function downloadAllBasket(){
 				debridLink( listOfLinks , true );
 				chrome.storage.local.set({'linksTodebrid': []}, loadBasket);
 			}
-			else
-				alert('oups');
 		}
 	);
 }
