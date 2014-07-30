@@ -15,7 +15,7 @@ function debridLink(links, autoDownload){
 			return;
 		}
 
-		var api_url = "https://www.mega-debrid.eu/api.php?action=getLink&token=" + items.token;
+		var api_url = "http://www.mega-debrid.eu/api.php?action=getLink&token=" + items.token;
 
 		for(var i = 0 ; i < links.length ; i++){
 
@@ -27,6 +27,7 @@ function debridLink(links, autoDownload){
 					if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 
 						var jsonResponse = JSON.parse(xhr.responseText);
+						console.log(jsonResponse);
 						if (jsonResponse['response_code'] == "ok"){
 							
 							var newLink = jsonResponse['debridLink'].trim().slice(1, -1);
@@ -34,6 +35,10 @@ function debridLink(links, autoDownload){
 								window.open(newLink); 
 							else
 								copyToClipboard(newLink);
+						}
+						else if(jsonResponse['response_code'] == 'TOKEN_ERROR'){
+							reLogin(function(){debridLink(link, autoDownload);});
+							return;
 						}
 						else{
 							displayNotification(chrome.i18n.getMessage('undefined_error_debird_link') + "\n" + link , true);
@@ -51,6 +56,49 @@ function debridLink(links, autoDownload){
 		}
 	});
 
+}
+
+/**
+ * relog the user and call the callback method after
+ * @param  callback The callback you want to call if authentification with success
+ */
+function reLogin(callback){
+	console.log(callback);
+
+	chrome.storage.sync.get({login: 'login',password: 'password'}, 
+	function(items) {
+
+		var login = items.login;
+		var password = items.password;
+		var xhr = new XMLHttpRequest();
+
+	try {
+
+		xhr.onreadystatechange = function(){
+
+			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+
+				var jsonResponse = JSON.parse(xhr.responseText);
+				if( jsonResponse["response_code"].trim() == "ok" ){
+
+					chrome.storage.sync.set({'token': jsonResponse["token"] }, callback);
+				}
+				else
+					printAPIError(jsonResponse);
+			}
+		}
+
+		xhr.onerror = function(error) {	console.error(error);}
+
+		var url = "http://www.mega-debrid.eu/api.php?action=connectUser";
+		url += "&login=" + encodeURIComponent(login);
+		url += "&password=" + encodeURIComponent(password);
+
+		xhr.open("GET", url, false);
+		xhr.send(null);
+		
+	} catch(e) { console.error(e); }
+	});
 }
 
 /**

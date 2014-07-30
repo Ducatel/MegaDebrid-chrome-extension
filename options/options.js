@@ -81,10 +81,23 @@ function restore_options() {
 	});
 }
 
+/**
+ * Launch the save_options function if event are keyup on enter key
+ * @param  e event
+ */
+function launchSave_options(e){
+	e = e || window.event;
+
+    if (e.keyCode == '13') 
+    	save_options();
+}
+
 
 window.addEventListener("load", function() {
 
 	restore_options();
 	document.getElementById('save').addEventListener('click', save_options);
 
+	document.getElementById('login').onkeyup = launchSave_options;
+	document.getElementById('password').onkeyup = launchSave_options;
 });
