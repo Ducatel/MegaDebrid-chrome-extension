@@ -32,7 +32,7 @@ function debridLink(links, autoDownload){
 							
 							var newLink = jsonResponse['debridLink'].trim().slice(1, -1);
 							if(autoDownload)
-								window.open(newLink); 
+								chrome.downloads.download({url :newLink}); 
 							else
 								copyToClipboard(newLink);
 						}
