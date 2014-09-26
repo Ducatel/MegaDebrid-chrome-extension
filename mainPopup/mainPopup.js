@@ -64,23 +64,14 @@ function deleteRow(rowId){
 }
 
 /**
- * Dowload all links in basket
+ * Donwload all links in basket and redraw the popup
  */
-function downloadAllBasket(){
-
-	chrome.storage.local.get( { linksTodebrid: 'linksTodebrid' }, 
-		function(items) {
-
-			var listOfLinks = items.linksTodebrid;
-			if( Object.prototype.toString.call( listOfLinks ) === '[object Array]' ) {
-				debridLink( listOfLinks , true );
-				chrome.storage.local.set({'linksTodebrid': []}, loadBasket);
-			}
-		}
-	);
+function downloadAllLinks(){
+	downloadAllBasket(loadBasket);
 }
+
 
 window.addEventListener("load", function() {
 	loadBasket();
-	document.getElementById('saveButton').onclick = downloadAllBasket;
+	document.getElementById('saveButton').onclick = downloadAllLinks;
 });

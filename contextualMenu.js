@@ -35,7 +35,6 @@ function addToBasketMenuCallback(info, tab){
 		else
 			displayNotification(chrome.i18n.getMessage('max_link_in_basket'), true);
 	});
-
 }
 
 /**
@@ -46,7 +45,7 @@ function addToBasketMenuCallback(info, tab){
 function getDebridLinkMenuCallback(info, tab){
 	var linkUrl = info['linkUrl'].trim();
 	debridLink( [ linkUrl ], false );
-}
+} 
 
 chrome.contextMenus.removeAll();
 
@@ -59,8 +58,8 @@ chrome.contextMenus.create({"title": title, "contexts":["link"], "onclick": getD
 title = chrome.i18n.getMessage('context_menu_add_basket');
 chrome.contextMenus.create({"title": title, "contexts":["link"], "onclick": addToBasketMenuCallback});
 
-
-
+title = chrome.i18n.getMessage('context_menu_download_basket');
+chrome.contextMenus.create({"title": title, "contexts":["all"], "onclick": downloadAllBasket});
 
 
 

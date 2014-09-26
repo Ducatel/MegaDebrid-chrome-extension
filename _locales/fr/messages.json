@@ -35,6 +35,10 @@
 		"message" : "Ajouter au panier",
 		"description" : "Contextual menu entry for adding link to basket"
 	},
+	"context_menu_download_basket" : {
+		"message" : "Télécharger les liens du panier",
+		"description" : "Contextual menu entry for download links into basket"
+	},
 	"context_menu_get_debrided_link" : {
 		"message" : "Récupérer l'url débrider",
 		"description" : "Contextual menu entry for get debrided url"

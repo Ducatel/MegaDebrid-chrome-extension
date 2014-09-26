@@ -140,3 +140,24 @@ function displayNotification(msg, isError){
 
 	chrome.notifications.create("", opt,function(notificationId) { });
 }
+
+/**
+ * Dowload all links in basket
+ * @param callback function called at the end
+ */
+function downloadAllBasket(callback){
+
+	chrome.storage.local.get( { linksTodebrid: 'linksTodebrid' }, 
+		function(items) {
+
+			var listOfLinks = items.linksTodebrid;
+			if( Object.prototype.toString.call( listOfLinks ) === '[object Array]' ) {
+				debridLink( listOfLinks , true );
+				if(typeof callback === 'function')
+					chrome.storage.local.remove('linksTodebrid', callback);
+				else
+					chrome.storage.local.remove('linksTodebrid');
+			}
+		}
+	);
+}

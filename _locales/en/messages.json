@@ -35,6 +35,10 @@
 		"message" : "Add to basket",
 		"description" : "Contextual menu entry for adding link to basket"
 	},
+	"context_menu_download_basket" : {
+		"message" : "Download links in basket",
+		"description" : "Contextual menu entry for download links into basket"
+	},
 	"context_menu_get_debrided_link" : {
 		"message" : "Get debrided link",
 		"description" : "Contextual menu entry for get debrided url"
