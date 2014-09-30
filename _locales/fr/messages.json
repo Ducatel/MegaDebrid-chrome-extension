@@ -43,6 +43,22 @@
 		"message" : "Récupérer l'url débrider",
 		"description" : "Contextual menu entry for get debrided url"
 	},
+	"context_menu_download_current_page" : {
+		"message" : "Télécharger la page courante",
+		"description" : "Contextual menu entry for downloading the current page"
+	},
+	"context_menu_debrid_current_page" : {
+		"message" : "Récupérer l'url débrider de la page courant",
+		"description" : "Contextual menu entry for getting debrided url of current page"
+	},
+	"context_menu_add_current_page_basket" : {
+		"message" : "Ajouter la page courante au panier",
+		"description" : "Contextual menu entry for adding current page in basket"
+	},
+	"context_menu_current_page" : {
+		"message" : "Page courante",
+		"description" : "Contextual menu entry (parent) for current page entries"
+	},
 	"url_copied_in_clipboard" : {
 		"message" : "Copié dans le presse papier",
 		"description" : "When url are copied inside the clipboard"
