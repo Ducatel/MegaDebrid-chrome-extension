@@ -64,7 +64,6 @@ function addCurrentPageToBasketMenuCallback(info, tab){
 	addLinkToBasket(info.pageUrl);
 }
 
-
 /**
  * Callback of "get debrid link" menu entry 
  * @param  info Array of info on current link
@@ -97,20 +96,19 @@ chrome.contextMenus.create({"title": titleEntry, "contexts":["link"], "onclick":
 titleEntry = chrome.i18n.getMessage('context_menu_add_basket');
 chrome.contextMenus.create({"title": titleEntry, "contexts":["link"], "onclick": addToBasketMenuCallback});
 
-titleEntry = chrome.i18n.getMessage('context_menu_download_basket');
-chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": downloadAllBasket});
+/*titleEntry = chrome.i18n.getMessage('context_menu_download_basket');
+chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": downloadAllBasket});*/
 
-titleEntry = chrome.i18n.getMessage('context_menu_current_page');
-var parentOfCurrentPageEntries = chrome.contextMenus.create({"title": titleEntry});
+chrome.contextMenus.create({type: "separator", "contexts":["all"]});
 
 titleEntry = chrome.i18n.getMessage('context_menu_download_current_page');
-chrome.contextMenus.create({title: titleEntry, "contexts":["all"], parentId: parentOfCurrentPageEntries,"onclick": downloadNowCurrentPageMenuCallback});
+chrome.contextMenus.create({title: titleEntry, "contexts":["all"], "onclick": downloadNowCurrentPageMenuCallback});
 
 titleEntry = chrome.i18n.getMessage('context_menu_debrid_current_page');
-chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "parentId": parentOfCurrentPageEntries, "onclick": getDebridLinkCurrentPage});
+chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": getDebridLinkCurrentPage});
 
 titleEntry = chrome.i18n.getMessage('context_menu_add_current_page_basket');
-chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "parentId": parentOfCurrentPageEntries, "onclick": addCurrentPageToBasketMenuCallback});
+chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": addCurrentPageToBasketMenuCallback});
 
 
 
