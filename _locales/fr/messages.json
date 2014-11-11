@@ -55,10 +55,6 @@
 		"message" : "Ajouter la page courante au panier",
 		"description" : "Contextual menu entry for adding current page in basket"
 	},
-	"context_menu_current_page" : {
-		"message" : "Page courante",
-		"description" : "Contextual menu entry (parent) for current page entries"
-	},
 	"url_copied_in_clipboard" : {
 		"message" : "Copié dans le presse papier",
 		"description" : "When url are copied inside the clipboard"

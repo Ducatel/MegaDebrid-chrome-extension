@@ -55,10 +55,6 @@
 		"message" : "Add current page to basket",
 		"description" : "Contextual menu entry for adding current page in basket"
 	},
-	"context_menu_current_page" : {
-		"message" : "Current Page",
-		"description" : "Contextual menu entry (parent) for current page entries"
-	},
 	"url_copied_in_clipboard" : {
 		"message" : "Copied in clipboard",
 		"description" : "When url are copied inside the clipboard"

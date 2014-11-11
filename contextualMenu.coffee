@@ -3,7 +3,7 @@
 ###################################################################
 
 ###
-# Callback of "download now" menu entry 
+# Callback of "download now" menu entry
 # @param  info Array of info on current link
 # @param  tab  Array of info on current tab
 ###
@@ -13,7 +13,7 @@ downloadNowMenuCallback = (info, tab) ->
 
 
 ###
- * Callback of "download now current page" menu entry 
+ * Callback of "download now current page" menu entry
  * @param  info Array of info on current link
  * @param  tab  Array of info on current tab
 ###
@@ -30,11 +30,11 @@ addLinkToBasket = (url) ->
 
 	chrome.storage.local.get( { linksTodebrid: 'linksTodebrid' }, (items) ->
 		linksTodebrid = items.linksTodebrid
-		if Object.prototype.toString.call( linksTodebrid ) isnt '[object Array]' 
+		if Object.prototype.toString.call( linksTodebrid ) isnt '[object Array]'
     		linksTodebrid = Array()
-		
+
 		maxLinksInBasket = 10;
-		if linksTodebrid.length < maxLinksInBasket 
+		if linksTodebrid.length < maxLinksInBasket
 			linksTodebrid.push(url)
 			chrome.storage.local.set({'linksTodebrid': linksTodebrid}, () ->
 				displayNotification(chrome.i18n.getMessage('link_added_basket'))
@@ -45,7 +45,7 @@ addLinkToBasket = (url) ->
 
 
 ###
- * Callback of "add to basket" menu entry 
+ * Callback of "add to basket" menu entry
  * @param  info Array of info on current link
  * @param  tab  Array of info on current tab
 ###
@@ -54,7 +54,7 @@ addToBasketMenuCallback = (info, tab) ->
 
 
 ###
- * Callback of "add current page to basket" menu entry 
+ * Callback of "add current page to basket" menu entry
  * @param  info Array of info on current link
  * @param  tab  Array of info on current tab
 ###
@@ -63,7 +63,7 @@ addCurrentPageToBasketMenuCallback = (info, tab) ->
 
 
 ###
- * Callback of "get debrid link" menu entry 
+ * Callback of "get debrid link" menu entry
  * @param  info Array of info on current link
  * @param  tab  Array of info on current tab
 ###
@@ -72,7 +72,7 @@ getDebridLinkMenuCallback = (info, tab) ->
 	debridLink( [ linkUrl ], false )
 
 ###
- * Callback of "get debrid link for current page" menu entry 
+ * Callback of "get debrid link for current page" menu entry
  * @param  info Array of info on current link
  * @param  tab  Array of info on current tab
 ###
@@ -83,31 +83,25 @@ getDebridLinkCurrentPage = (info, tab) ->
 
 chrome.contextMenus.removeAll();
 
-titleEntry = chrome.i18n.getMessage('context_menu_download_menu');
-chrome.contextMenus.create({"title": titleEntry, "contexts":["link"], "onclick": downloadNowMenuCallback});
+titleEntry = chrome.i18n.getMessage('context_menu_download_menu')
+chrome.contextMenus.create({"title": titleEntry, "contexts":["link"], "onclick": downloadNowMenuCallback})
 
-titleEntry = chrome.i18n.getMessage('context_menu_get_debrided_link');
-chrome.contextMenus.create({"title": titleEntry, "contexts":["link"], "onclick": getDebridLinkMenuCallback});
+titleEntry = chrome.i18n.getMessage('context_menu_get_debrided_link')
+chrome.contextMenus.create({"title": titleEntry, "contexts":["link"], "onclick": getDebridLinkMenuCallback})
 
-titleEntry = chrome.i18n.getMessage('context_menu_add_basket');
-chrome.contextMenus.create({"title": titleEntry, "contexts":["link"], "onclick": addToBasketMenuCallback});
+titleEntry = chrome.i18n.getMessage('context_menu_add_basket')
+chrome.contextMenus.create({"title": titleEntry, "contexts":["link"], "onclick": addToBasketMenuCallback})
 
-#titleEntry = chrome.i18n.getMessage('context_menu_download_basket');
-#chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": downloadAllBasket});
+titleEntry = chrome.i18n.getMessage('context_menu_download_basket')
+chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": downloadAllBasket})
 
 chrome.contextMenus.create({type: "separator", "contexts":["all"]});
 
-titleEntry = chrome.i18n.getMessage('context_menu_download_current_page');
-chrome.contextMenus.create({title: titleEntry, "contexts":["all"], "onclick": downloadNowCurrentPageMenuCallback});
+titleEntry = chrome.i18n.getMessage('context_menu_download_current_page')
+chrome.contextMenus.create({title: titleEntry, "contexts":["all"], "onclick": downloadNowCurrentPageMenuCallback})
 
-titleEntry = chrome.i18n.getMessage('context_menu_debrid_current_page');
-chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": getDebridLinkCurrentPage});
+titleEntry = chrome.i18n.getMessage('context_menu_debrid_current_page')
+chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": getDebridLinkCurrentPage})
 
-titleEntry = chrome.i18n.getMessage('context_menu_add_current_page_basket');
-chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": addCurrentPageToBasketMenuCallback});
-
-
-
-
-
-
+titleEntry = chrome.i18n.getMessage('context_menu_add_current_page_basket')
+chrome.contextMenus.create({"title": titleEntry, "contexts":["all"], "onclick": addCurrentPageToBasketMenuCallback})

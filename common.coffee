@@ -3,11 +3,11 @@
 # @param  array of links you want to debrid
 # @param autoDownload If true download the debrided link, false copy the link
 ###
-debridLink = (links, autoDownload) ->
+window.debridLink = (links, autoDownload) ->
 	chrome.storage.sync.get({ token: 'token' }, (items) ->
 		if chrome.runtime.lastError
 			displayNotification(chrome.i18n.getMessage("no_account_error"), true);
-			return;
+			return
 
 		api_url = "http://www.mega-debrid.eu/api.php?action=getLink&token=" + items.token;
 
@@ -33,7 +33,7 @@ debridLink = (links, autoDownload) ->
 				xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded")
 				xhr.send("link=" + link)
 
-			catch err 
+			catch err
 				console.error(err)
 
 	)
@@ -43,18 +43,18 @@ debridLink = (links, autoDownload) ->
 # relog the user and call the callback method after
 # @param  callback The callback you want to call if authentification with success
 ##
-reLogin = (callback) ->
+window.reLogin = (callback) ->
 	console.log(callback)
 
 	chrome.storage.sync.get({login: 'login',password: 'password'}, (items) ->
 
 		login = items.login;
 		password = items.password;
-		xhr = new XMLHttpRequest();
+		xhr = new XMLHttpRequest;
 
-		try 
+		try
 
-			xhr.onreadystatechange = () -> 
+			xhr.onreadystatechange = () ->
 
 				if xhr.readyState == 4 and (xhr.status == 200 or xhr.status == 0)
 
@@ -63,8 +63,8 @@ reLogin = (callback) ->
 						chrome.storage.sync.set({'token': jsonResponse["token"] }, callback)
 					else
 						printAPIError(jsonResponse);
-				
-			
+
+
 
 			xhr.onerror = (error) -> console.error(error)
 
@@ -74,7 +74,7 @@ reLogin = (callback) ->
 
 			xhr.open("GET", url, false);
 			xhr.send(null);
-			
+
 		catch err
 			console.error(err)
 	)
@@ -84,7 +84,7 @@ reLogin = (callback) ->
 # Copy variable to clipboard
 # @param text The value you want to copy in the clipboard
 ###
-copyToClipboard = ( text ) -> 
+window.copyToClipboard = ( text ) ->
 	copyDiv = document.createElement('div');
 	copyDiv.contentEditable = true;
 	document.body.appendChild(copyDiv);
@@ -101,7 +101,7 @@ copyToClipboard = ( text ) ->
 # @param  msg The message you want to display
 # @param isError If true display a notification for error else standard notification. Default value: false
 ###
-displayNotification = (msg, isError) ->
+window.displayNotification = (msg, isError) ->
 
 	isError = if typeof isError isnt 'undefined' then isError else false
 
@@ -121,17 +121,15 @@ displayNotification = (msg, isError) ->
 # Dowload all links in basket
 # @param callback function called at the end
 ###
-downloadAllBasket = (callback) ->
+window.downloadAllBasket = (callback) ->
 
 	chrome.storage.local.get( { linksTodebrid: 'linksTodebrid' }, (items) ->
 
 		listOfLinks = items.linksTodebrid
-		if  Object.prototype.toString.call( listOfLinks ) == '[object Array]' 
+		if  Object.prototype.toString.call( listOfLinks ) == '[object Array]'
 			debridLink( listOfLinks , true )
 			if typeof callback is 'function'
 				chrome.storage.local.remove('linksTodebrid', callback)
 			else
 				chrome.storage.local.remove('linksTodebrid')
-	)		
-	
-
+	)
